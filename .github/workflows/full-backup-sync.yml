@@ -3,6 +3,7 @@ name: Full portfolio backup sync
 on:
   push:
     branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -20,16 +21,14 @@ jobs:
         run: |
           rm -rf /tmp/source
           git clone --depth 1 https://github.com/bishnu7798/bishnu-portfolio.git /tmp/source
-          find . -mindepth 1 -maxdepth 1 -exec rm -rf {} +
+          rm -rf /tmp/source/.git
+          find . -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} +
           cp -a /tmp/source/. .
 
       - name: Commit full backup
         run: |
-          git init
-          git checkout -b main
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
-          git commit -m "Full backup of bishnu-portfolio"
-          git remote add origin "https://x-access-token:$" + "{"+ "{ secrets.GITHUB_TOKEN }" + "}" + "@github.com/$" + "{ github.repository }.git"
-          git push --force origin main
+          git commit -m "Full backup of bishnu-portfolio" || exit 0
+          git push origin HEAD:main --force
