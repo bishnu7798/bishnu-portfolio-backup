@@ -1,3 +1,3 @@
-# Backup of bishnu-portfolio
+# Backup sync trigger
 
-Full repository backup.
+This file will be replaced by the source portfolio during the full backup sync.
