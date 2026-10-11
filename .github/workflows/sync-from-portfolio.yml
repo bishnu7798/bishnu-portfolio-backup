@@ -5,6 +5,8 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - '.github/workflows/**'
 
 permissions:
   contents: write
@@ -31,25 +33,22 @@ jobs:
           path: source
           fetch-depth: 0
 
-      - name: Copy every source file into backup
+      - name: Copy every non-workflow source file into backup
         shell: bash
         run: |
           rsync -a --delete \
             --exclude='/.git/' \
-            --exclude='/.github/workflows/sync-from-portfolio.yml' \
+            --exclude='/.github/workflows/' \
             source/ backup/
 
       - name: Commit and push backup
-        shell: bash
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd backup
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
           if git diff --cached --quiet; then
-            echo "Backup already matches source."
+            echo "Backup already matches source files."
           else
             git commit -m "Full A-to-Z backup sync from bishnu-portfolio"
             git push origin HEAD:main
