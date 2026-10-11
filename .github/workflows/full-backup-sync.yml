@@ -1,8 +1,6 @@
 name: Full portfolio backup sync
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -16,7 +14,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
       - name: Copy source repository
         run: |
           rm -rf /tmp/source
@@ -24,11 +21,11 @@ jobs:
           rm -rf /tmp/source/.git
           find . -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} +
           cp -a /tmp/source/. .
-
       - name: Commit full backup
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
-          git commit -m "Full backup of bishnu-portfolio" || exit 0
-          git push origin HEAD:main --force
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Full backup of bishnu-portfolio"
+          git push origin HEAD:main
