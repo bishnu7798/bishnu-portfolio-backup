@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="WorldLens — an interactive 3D global news globe demo by Bishnu.">
+  <meta name="theme-color" content="#070b14">
+  <title>WorldLens — Interactive Global News Globe</title>
+  <link rel="stylesheet" href="style.css?v=20260923-4">
+</head>
+<body>
+  <div id="loading" class="loading-screen"><div class="loader-orb">🌍</div><h1>WORLDLENS</h1><p id="loadingText">Loading WorldLens...</p></div>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="WorldLens home"><span>🌍</span><strong>WORLDLENS</strong><small>LIVE WORLD NEWS</small></a>
+    <div class="search-wrap"><input id="searchInput" type="search" placeholder="Search country, region or city..." aria-label="Search location"><div id="searchResults" class="search-results"></div></div>
+    <div class="top-actions"><button id="themeBtn" class="icon-btn" title="Toggle theme">☾</button><button id="fullscreenBtn" class="icon-btn" title="Fullscreen">⛶</button></div>
+  </header>
+  <main class="app-shell">
+    <section class="globe-stage" aria-label="Interactive 3D globe"><div id="globeViz"></div><div class="globe-vignette"></div><div class="location-chip"><span class="live-dot"></span><span id="locationTitle">GLOBAL NEWS</span><span id="updatedBadge" class="updated-badge">UPDATING…</span></div><div class="controls"><button id="zoomIn">+</button><button id="zoomOut">−</button><button id="resetBtn">⟳ RESET</button><button id="rotateBtn">AUTO ROTATE: ON</button><button id="heatBtn">HEATMAP: ON</button></div><div class="hint">Drag to rotate · Scroll to zoom · Click a marker</div><div id="breakingTicker" class="breaking-ticker" aria-live="polite"></div></section>
+    <aside id="newsPanel" class="news-panel"><div class="panel-head"><div><span class="eyebrow">WORLD / NEWS</span><h2 id="panelTitle">GLOBAL NEWS</h2></div><button id="backBtn" class="back-btn" hidden>← BACK</button></div><div id="breadcrumb" class="breadcrumb"><button data-level="world">WORLD</button></div><div id="filters" class="filters"></div><div id="featuredNews"></div><div id="newsList" class="news-list"></div></aside>
+  </main>
+  <footer>WorldLens demo · HTML5 · CSS3 · Vanilla JavaScript · Three.js · Globe.gl</footer>
+  
+  <script src="config.js?v=20260923-4"></script>
+  <script src="script-v2.js?v=20260923-4"></script>
+</body>
+</html>
